@@ -1,2 +1,31 @@
-Hello, Canada.
+Ludum Dare 25 Project - Theme: UNKNOWN
 
+This game will be a 2D topdown action/adventure/rpg game. The
+world will be continuous, meaning no loading screens when
+travelling from place to place. It will have background music,
+sounds, possibly NPCs, possibly dialog, and possibly warps.
+
+All of the specifics will be determined after the theme has
+been decided and an idea has been determined.
+
+Minimum requirements:
+
+World that can be loaded in chunks via a specific map format.
+
+Optional animated sprites.
+
+Input.
+
+Camera movement.
+
+Basic interface options.
+
+Pause menu.
+
+Sound Manager for loading and playing sounds.
+
+----
+
+Randall - Programming
+Pat - Programming
+Nathan - Sprites
