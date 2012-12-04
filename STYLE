@@ -1,0 +1,101 @@
+So, Canada, these are your style guidelines. Use them when
+coding. Remember that the .HPP HEADER files should be the
+best documentation.
+
+************** HEADER FILE *****************
+
+#pragma once // ALWAYS
+
+// Single line comments.
+
+/*
+    Multi-line comments.
+    Notice that the opening and closing lines are blank.
+*/
+
+// All declarations go in the HEADER file.
+class ExampleClass : public AnotherClass
+{
+public:
+    
+    // This is the constructor.
+    ExampleClass(int variableWhatever);
+    
+    // Every function needs a describing comment.
+    ~ExampleClass();
+
+    /*
+        A multi-line describing comment
+        is even better for some, more
+        important functions.
+    */
+    void someImportantFunction();
+
+    /*
+        Notice how the functions always start
+        with a lowercase letter and each new
+        word starts with a capital letter.
+    */
+    int anotherImportantFunction();
+
+private:
+    
+    /*
+        Functions that are only used by the object
+        should be private. Only necessary functions
+        should be made public.
+    */
+    void somePrivateFunction();
+
+    // All member variables should be private if possible.
+    int mSameCasingAsFunction;
+
+    // Also note that every member variable starts with m.
+    int mMemberVariable;
+
+};
+
+************ SOURCE FILE ***************
+
+void ExampleClass::someImportantFunction()
+{
+    // Functions in the source CPP file don't require preceding comments.
+
+    for(int i = 0; i < 10; i++)
+    {
+        // Do something.
+    }
+
+    while(false)
+    {
+        // Don't do anything.
+    }
+
+    if(true)
+    {
+        // Do something.
+    }
+    else
+    {
+        // Don't do something.
+    }
+
+    // You can also do something like this.
+    if(true)
+        y = true;
+    else
+        y = false;
+
+    if(x == 5)
+        z = 2;
+
+    // Name variables something obvious/relevant or comment.
+    int justOneVariable = 10;
+
+    // Make sure to comment any statements that might be confusing.
+    callThisFunction(MS_GOOD | MS_HAPPY | MS_MEESE);
+
+    callAnotherFunction(1, 14, varX, varY, anObject);
+
+    return; // Remember to return.
+}
