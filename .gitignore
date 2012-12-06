@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+
+# Other compiled files
+*.dll
+*.exe
+
+# Visual Studio Stuff
+*.sdf
