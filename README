@@ -16,8 +16,6 @@ been decided and an idea has been determined.
 
 Minimum requirements:
 
-World that can be loaded in chunks via a specific map format.
-
 Optional animated sprites.
 
 Input.
@@ -30,8 +28,3 @@ Pause menu.
 
 Sound Manager for loading and playing sounds.
 
-----
-
-Randall - Programming
-Pat - Programming
-Nathan - Sprites

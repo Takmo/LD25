@@ -1,7 +1,11 @@
 #pragma once
 
 #include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/String.hpp>
+
+#include <vector>
 
 class Actor
 {
@@ -28,11 +32,11 @@ public:
 	void addAnimation(sf::String name, Animation *animation);
 	
 	/*
-		void addSound(sf::String name, sf::SoundBuffer sound);
+		void addSound(sf::String name, sf::SoundBuffer *sound);
 		Add a sound to the actor's soundbank that can be played
 		at a later time.
 	*/
-	void addSound(sf::String name, sf::SoundBuffer sound);
+	void addSound(sf::String name, sf::SoundBuffer *sound);
 	
 	/*
 		void contains(float x, float y);
@@ -48,11 +52,23 @@ public:
 	void intersects(Actor *other);
 	
 	/*
+		std::vector<sf::String> getAnimationList();
+		Returns a vector list of names of Animations.
+	*/
+	std::vector<sf::String> getAnimationList();
+
+	/*
 		sf::FloatRect getBounds();
 		Returns the bounds of the actor.
 	*/
 	sf::FloatRect getBounds();
-	
+
+	/*
+		std::vector<sf::String> getSoundList();
+		Returns a vector list of names of sounds.
+	*/
+	std::vector<sf::String> getSoundList();
+
 	/*
 		bool isVisible();
 		Returns true if the actor is visible.
