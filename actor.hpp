@@ -7,6 +7,9 @@
 
 #include <vector>
 
+class Animation;
+// TODO ADD ANIMATION!
+
 class Actor
 {
 public:
@@ -39,10 +42,10 @@ public:
 	void addSound(sf::String name, sf::SoundBuffer *sound);
 	
 	/*
-		void contains(float x, float y);
+		void intersects(float x, float y);
 		Checks to see if the actor's bounds contain point (X, Y).
 	*/
-	void contains(float x, float y);
+	void intersects(float x, float y);
 	
 	/*
 		void intersects(Actor *other);
@@ -64,10 +67,22 @@ public:
 	sf::FloatRect getBounds();
 
 	/*
+		sf::Texture *getCurrentTexture();
+		Returns the current texture of the actor.
+	*/
+	sf::Texture *getCurrentTexture();
+
+	/*
 		std::vector<sf::String> getSoundList();
 		Returns a vector list of names of sounds.
 	*/
 	std::vector<sf::String> getSoundList();
+
+	/*
+		sf::Vector2f getPosition();
+		Returns the position of the actor.
+	*/
+	sf::Vector2f getPosition();
 
 	/*
 		bool isVisible();

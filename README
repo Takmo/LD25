@@ -1,6 +1,12 @@
 PLEASE REMEMBER NOT TO COMMIT UNNECESSARY FILES!
 ONLY CODE, PROJECT FILES, AND ASSETS IN THIS REPO!
 
+Make sure that your project contains a folder structure like this:
+
+./SFML/include
+./SFML/lib
+...
+
 All code found within this repository is free for any use.
 Please contact ME if you would like to use any assets.
 
