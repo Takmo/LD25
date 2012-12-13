@@ -2,6 +2,7 @@
 
 #include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/String.hpp>
 
@@ -42,17 +43,17 @@ public:
 	void addSound(sf::String name, sf::SoundBuffer *sound);
 	
 	/*
-		void intersects(float x, float y);
+		bool intersects(float x, float y);
 		Checks to see if the actor's bounds contain point (X, Y).
 	*/
-	void intersects(float x, float y);
+	bool intersects(float x, float y);
 	
 	/*
-		void intersects(Actor *other);
+		bool intersects(Actor *other);
 		Checks to see if other->getBounds() intersects
 		with this->getBounds().
 	*/
-	void intersects(Actor *other);
+	bool intersects(Actor *other);
 	
 	/*
 		std::vector<sf::String> getAnimationList();
@@ -67,10 +68,10 @@ public:
 	sf::FloatRect getBounds();
 
 	/*
-		sf::Texture *getCurrentTexture();
+		const sf::Texture *getCurrentTexture();
 		Returns the current texture of the actor.
 	*/
-	sf::Texture *getCurrentTexture();
+	const sf::Texture *getCurrentTexture();
 
 	/*
 		std::vector<sf::String> getSoundList();
@@ -121,6 +122,12 @@ public:
 		texture to default.
 	*/
 	void stopAnimation();
+
+	/*
+		virtual void tick(double time);
+		Ticks the current animation and performs other logic.
+	*/
+	virtual void tick(double time);
 	
 	/*
 		void translate(float x, float y);
@@ -128,4 +135,10 @@ public:
 	*/
 	void translate(float x, float y);
 	
+protected:
+
+	bool mVisible;	// If the actor is invisible, don't draw.
+	sf::Sprite mSprite;
+	sf::Texture *mDefaultTexture;
+
 };

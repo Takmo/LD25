@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include "actor.hpp"
@@ -63,4 +64,8 @@ public:
 		rather than globally.
 	*/
 	void translate(float x, float y);
+
+private:
+
+	sf::RenderWindow mRenderWindow;	// The SFML RenderWindow.
 };
