@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-	Cinema s;
+	Cinema c;
 	system("pause");
 	return 0;
 }
