@@ -4,6 +4,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/String.hpp>
 
+#include <map>
+
 /*
 	NOTES ON REFERENCES
 
@@ -62,4 +64,17 @@ public:
 		TODO: GET ANGRY WHEN YOU ASK FOR INVALID RESOURCE.
 	*/
 	sf::Texture *getTexture(sf::String resourceName);
+
+private:
+
+	/*
+		int resourceType(sf::String resource);
+		Check to see the type of resource according to file extension.
+		1 = Texture, 2 = Sound, Else = INVALID
+	*/
+	int resourceType(sf::String resource);
+
+	std::map<sf::String, int> mReferences;	// Keeps the resource ref count.
+	std::map<sf::String, sf::SoundBuffer*> mSounds;
+	std::map<sf::String, sf::Texture*> mTextures;
 };
