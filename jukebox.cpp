@@ -12,35 +12,25 @@ Jukebox::~Jukebox()
 
 }
 
-
-bool addSound(sf::String soundFile)
+void addMusic(sf::String musicFile)
 {
-
+	/*
+		Make sure the music file exists.
+		If it doesn't, std::cout an error.
+	*/
 }
-
-bool addMusic(sf::String musicFile)
-{
-
-}
-
-
-void playSound(sf::String sound)
-{
-
-}
-
 
 void playMusic(sf::String music)
 {
-
+	// If music does not exist, std::cout error.
 }
 
 void pauseMusic(sf::String music)
 {
-
+	// If music does not exist, std::cout error.
 }
 
 void stopMusic(sf::String music)
 {
-
+	// If music does not exist, std::cout error.
 }
