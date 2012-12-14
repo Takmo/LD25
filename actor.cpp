@@ -54,6 +54,11 @@ void Actor::setVisible(bool visible)
 	mVisible = visible;
 }
 
+void Actor::tick(double time)
+{
+	// TODO
+}
+
 void Actor::translate(float x, float y)
 {
 	sf::Vector2f oldPos = mSprite.getPosition();
