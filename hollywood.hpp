@@ -3,6 +3,9 @@
 #include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include "actor.hpp"
+#include "warehouse.hpp"
+
 class Hollywood
 {
 public:

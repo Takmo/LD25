@@ -81,13 +81,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="actor.cpp" />
-    <ClCompile Include="actor.hpp" />
     <ClCompile Include="cinema.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="warehouse.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="actor.hpp" />
     <ClInclude Include="cinema.hpp" />
+    <ClInclude Include="hollywood.hpp" />
     <ClInclude Include="warehouse.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

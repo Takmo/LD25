@@ -38,7 +38,6 @@ public:
 	/*
 		void addItem(sf::String resourceName);
 		Add an image or sound to the list of resources.
-		TODO: GET ANGRY WHEN YOU ADD INVALID RESOURCE.
 	*/
 	void addItem(sf::String resourceName);
 
@@ -53,7 +52,6 @@ public:
 		sf::SoundBuffer getSound(sf::String resourceName);
 		Retrieve stored sound data that matches the resourceName.
 		Also adds one to the reference count of resourceName.
-		TODO: GET ANGRY WHEN YOU ASK FOR INVALID RESOURCE.
 	*/
 	sf::SoundBuffer *getSound(sf::String resourceName);
 
@@ -61,7 +59,6 @@ public:
 		sf::Texture getTexture(sf::String resourceName);
 		Retrieved stored texture data that matches the resourceName.
 		Also adds one to the reference count of resourceName.
-		TODO: GET ANGRY WHEN YOU ASK FOR INVALID RESOURCE.
 	*/
 	sf::Texture *getTexture(sf::String resourceName);
 

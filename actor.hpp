@@ -1,11 +1,13 @@
 #pragma once
 
+#include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/String.hpp>
 
+#include <map>
 #include <vector>
 
 class Animation;
@@ -138,6 +140,7 @@ public:
 protected:
 
 	bool mVisible;	// If the actor is invisible, don't draw.
+	std::map<sf::String, sf::Sound*> mSounds;
 	sf::Sprite mSprite;
 	sf::Texture *mDefaultTexture;
 
