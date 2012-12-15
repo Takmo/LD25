@@ -40,4 +40,7 @@ public:
 	*/
 	void deleteActor(Actor *actor);
 
+private:
+
+	Warehouse *mWarehouse;
 };

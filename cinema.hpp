@@ -2,10 +2,18 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include "actor.hpp"
 
-class Cinema
+class CinemaViewer
+{
+public:
+	virtual void keyPressed(sf::Keyboard::Key key);
+	virtual void keyReleased(sf::Keyboard::Key key);
+};
+
+class Cinema : public CinemaViewer
 {
 public:
 
@@ -47,6 +55,12 @@ public:
 	sf::Vector2f getPosition();
 
 	/*
+		bool pollEvents();
+		Polls the window for events. Returns false if closed.
+	*/
+	bool pollEvents();
+
+	/*
 		void render();
 		Render one frame.
 	*/
@@ -59,6 +73,12 @@ public:
 	void setPosition(float x, float y);
 
 	/*
+		void setViewer(CinemaViewer *viewer);
+		Sets the current CinemaViewer that receives event notifications.
+	*/
+	void setViewer(CinemaViewer *viewer);
+
+	/*
 		void translate(float x, float y);
 		Translates the center of the cinema screen locally,
 		rather than globally.
@@ -67,5 +87,6 @@ public:
 
 private:
 
+	CinemaViewer *mCinemaViewer;
 	sf::RenderWindow mRenderWindow;	// The SFML RenderWindow.
 };

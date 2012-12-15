@@ -2,22 +2,34 @@
 
 #include "actor.hpp"
 
-#include <iostream>
-
-Actor::Actor(sf::Texture *defaultTexture, float x, float y, bool visible)
+Actor::Actor(sf::String defaultName, sf::Texture *defaultTexture, float x, float y, bool visible)
 {
 	mDefaultTexture = defaultTexture;
+	mDefaultTextureName = defaultName;
 	mSprite.setTexture(*mDefaultTexture);
 	mSprite.setPosition(x, y);
 	mVisible = visible;
+	mCurrentAnimation = mAnimations.end();;
 }
 
 Actor::~Actor()
 {
-	std::map<sf::String, sf::Sound*>::iterator i;
-	for(i = mSounds.begin(); i != mSounds.end(); i++)
-		delete i->second;
+	// Delete the animations.
+	std::map<sf::String, Animation*>::iterator ai;
+	for(ai = mAnimations.begin(); ai != mAnimations.end(); ai++)
+		delete ai->second;
+	mAnimations.clear();
+	
+	// Delete the sounds.
+	std::map<sf::String, sf::Sound*>::iterator si;
+	for(si = mSounds.begin(); si != mSounds.end(); si++)
+		delete si->second;
 	mSounds.clear();
+}
+
+void Actor::addAnimation(sf::String name, Animation *animation)
+{
+	mAnimations.insert(std::make_pair(name, animation));
 }
 
 void Actor::addSound(sf::String name, sf::SoundBuffer *sound)
@@ -30,17 +42,25 @@ sf::FloatRect Actor::getBounds()
 	return mSprite.getGlobalBounds();
 }
 
-const sf::Texture *Actor::getCurrentTexture()
+sf::Sprite *Actor::getSprite()
 {
-	return mSprite.getTexture();
+	return &mSprite;
 }
 
-std::vector<sf::String> Actor::getSoundList()
+std::vector<sf::String> Actor::getAssetList()
 {
 	std::vector<sf::String> r;
-	std::map<sf::String, sf::Sound*>::iterator i;
-	for(i = mSounds.begin(); i != mSounds.end(); i++)
-		r.push_back(i->first);
+	r.push_back(mDefaultTextureName);
+	std::map<sf::String, Animation*>::iterator ai;
+	for(ai = mAnimations.begin(); ai != mAnimations.end(); ai++)
+	{
+		std::vector<sf::String>::iterator ti;
+		for(ti = ai->second->getFrameList().begin(); ti != ai->second->getFrameList().end(); ti++)
+			r.push_back(*ti);
+	}
+	std::map<sf::String, sf::Sound*>::iterator si;
+	for(si = mSounds.begin(); si != mSounds.end(); si++)
+		r.push_back(si->first);
 	return r;
 }
 
@@ -66,18 +86,6 @@ bool Actor::intersects(Actor *other)
 bool Actor::isVisible()
 {
 	return mVisible;
-}
-
-void Actor::playSound(sf::String name)
-{
-	std::map<sf::String, sf::Sound*>::iterator i = mSounds.find(name);
-	if(i == mSounds.end())
-	{
-		std::cout << "Actor: Tried to play nonexistant sound: " <<
-			(std::string)name << std::endl;
-		return;
-	}
-	i->second->play();
 }
 
 void Actor::setPosition(float x, float y)

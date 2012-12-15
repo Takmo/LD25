@@ -10,8 +10,7 @@
 #include <map>
 #include <vector>
 
-class Animation;
-// TODO ADD ANIMATION!
+#include "animation.hpp"
 
 class Actor
 {
@@ -21,7 +20,7 @@ public:
 		CONSTRUCTOR
 		Create and actor with a default texture and position. Visible by default.
 	*/
-	Actor(sf::Texture *defaultTexture, float x, float y, bool visible = true);
+	Actor(sf::String defaultName, sf::Texture *defaultTexture, float x, float y, bool visible = true);
 	
 	/*
 		DESTRUCTOR
@@ -56,12 +55,6 @@ public:
 		with this->getBounds().
 	*/
 	bool intersects(Actor *other);
-	
-	/*
-		std::vector<sf::String> getAnimationList();
-		Returns a vector list of names of Animations.
-	*/
-	std::vector<sf::String> getAnimationList();
 
 	/*
 		sf::FloatRect getBounds();
@@ -70,16 +63,17 @@ public:
 	sf::FloatRect getBounds();
 
 	/*
-		const sf::Texture *getCurrentTexture();
-		Returns the current texture of the actor.
+		sf::Sprite *getSprite();
+		Returns the actor's sprite.
 	*/
-	const sf::Texture *getCurrentTexture();
+	sf::Sprite *getSprite();
 
 	/*
-		std::vector<sf::String> getSoundList();
-		Returns a vector list of names of sounds.
+		std::vector<sf::String> getAssetList();
+		Returns a vector list of all assets.
+		This includes both animation textures and sounds.
 	*/
-	std::vector<sf::String> getSoundList();
+	std::vector<sf::String> getAssetList();
 
 	/*
 		sf::Vector2f getPosition();
@@ -94,19 +88,6 @@ public:
 	bool isVisible();
 	
 	/*
-		void playAnimation(sf::String name);
-		Sets name as the current playing animation.
-		If no animation is found, have no animation.
-	*/
-	void playAnimation(sf::String name);
-	
-	/*
-		void playSound(sf::String name);
-		Play the sound with the slected name.
-	*/
-	void playSound(sf::String name);
-	
-	/*
 		void setPosition(float x, float y);
 		Sets the current position to (X, Y).
 	*/
@@ -117,13 +98,6 @@ public:
 		Set the actor to be visible or invisible.
 	*/
 	void setVisible(bool visible = true);
-	
-	/*
-		void stopAnimation();
-		Stop the current animation and set the
-		texture to default.
-	*/
-	void stopAnimation();
 
 	/*
 		virtual void tick(double time);
@@ -140,8 +114,11 @@ public:
 protected:
 
 	bool mVisible;	// If the actor is invisible, don't draw.
+	std::map<sf::String, Animation*>::iterator mCurrentAnimation;
+	std::map<sf::String, Animation*> mAnimations;
 	std::map<sf::String, sf::Sound*> mSounds;
 	sf::Sprite mSprite;
+	sf::String mDefaultTextureName;
 	sf::Texture *mDefaultTexture;
 
 };
