@@ -49,10 +49,22 @@ public:
 	void draw(Actor *actor);
 
 	/*
+		void draw(Actor *actor);
+		Draws the sprite.
+	*/
+	void draw(sf::Sprite *sprite);
+
+	/*
 		sf::Vector2f getPosition();
 		Returns the center position of the cinema screen.
 	*/
 	sf::Vector2f getPosition();
+
+	/*
+		book isKeyDown(sf::Keyboard::Key key);
+		Check if key is down.
+	*/
+	bool isKeyDown(sf::Keyboard::Key key);
 
 	/*
 		bool pollEvents();

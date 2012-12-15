@@ -31,6 +31,8 @@ public:
 	*/
 	Actor *createTestActor();
 
+	Actor *createGoat();
+
 	/*
 		void deleteActor(Actor *actor);
 		Deletes the provided actor and dereferences the

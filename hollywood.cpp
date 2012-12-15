@@ -6,7 +6,9 @@ Hollywood::Hollywood(Warehouse *warehouse)
 {
 	mWarehouse = warehouse;
 
-	mWarehouse->addItem("assets/rofl.png");
+	mWarehouse->addItem("assets/background.png");
+	mWarehouse->addItem("assets/goat.png");
+	mWarehouse->addItem("assets/villain.png");
 }
 
 Hollywood::~Hollywood()
@@ -16,7 +18,12 @@ Hollywood::~Hollywood()
 
 Actor *Hollywood::createTestActor()
 {
-	return new Actor("assets/rofl.png", mWarehouse->getTexture("assets/rofl.png"), 0, 0);
+	return new Actor("assets/villain.png", mWarehouse->getTexture("assets/villain.png"), 0, 0);
+}
+
+Actor *Hollywood::createGoat()
+{
+	return new Actor("assets/goat.png", mWarehouse->getTexture("assets/goat.png"), 0, 0);
 }
 
 void Hollywood::deleteActor(Actor *actor)

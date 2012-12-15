@@ -10,7 +10,7 @@ void CinemaViewer::keyReleased(sf::Keyboard::Key key) {}
 Cinema::Cinema()
 {
 	mRenderWindow.create(sf::VideoMode(800, 600), "Ludum Dare 25", sf::Style::Close);
-	mRenderWindow.setVerticalSyncEnabled(true);
+	mRenderWindow.setFramerateLimit(30);
 	mRenderWindow.display();
 	setViewer(this);
 }
@@ -22,9 +22,19 @@ void Cinema::draw(Actor *actor)
 	mRenderWindow.draw(*actor->getSprite());
 }
 
+void Cinema::draw(sf::Sprite *sprite)
+{
+	mRenderWindow.draw(*sprite);
+}
+
 Cinema::~Cinema()
 {
 	mRenderWindow.close();
+}
+
+bool Cinema::isKeyDown(sf::Keyboard::Key key)
+{
+	return sf::Keyboard::isKeyPressed(key);
 }
 
 bool Cinema::pollEvents()

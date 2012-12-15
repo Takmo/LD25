@@ -21,7 +21,9 @@ public:
 
 private:
 
-	Actor *randomActor;	// TODO REMOVE THIS.
+	Actor *mPlayer;
+	std::map<sf::String, Actor*> mActors;
+	sf::Sprite background;	// TODO REMOVE THIS TOO.
 
 	Cinema *mCinema;
 	Hollywood *mHollywood;
