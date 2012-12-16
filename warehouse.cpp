@@ -47,6 +47,7 @@ void Warehouse::addItem(sf::String resourceName)
 			delete t;
 			return;
 		}
+		t->setSmooth(false);
 		mTextures.insert(std::make_pair(resourceName, t));
 		mReferences.insert(std::make_pair(resourceName, 0));
 		break;
@@ -119,7 +120,7 @@ int Warehouse::resourceType(sf::String resource)
 		return 0;	// Invalid
 	if(resource.find(".png", resource.getSize() - 4) != sf::String::InvalidPos)
 		return 1;	// Texture
-	if(resource.find(".ogg", resource.getSize() - 4) != sf::String::InvalidPos)
+	if(resource.find(".wav", resource.getSize() - 4) != sf::String::InvalidPos)
 		return 2;	// Sound
 	return 0;	// No valid types.
 }

@@ -31,7 +31,7 @@ public:
 	*/
 	Actor *createTestActor();
 
-	Actor *createGoat();
+	Actor *createVillain();
 
 	/*
 		void deleteActor(Actor *actor);

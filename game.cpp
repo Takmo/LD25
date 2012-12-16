@@ -7,9 +7,14 @@ Game::Game(Cinema *c)
 	mCinema = c;
 	c->setViewer(this);
 	mHollywood = new Hollywood(&mWarehouse);
-	mPlayer = mHollywood->createTestActor();
-	mCinema->setPosition(mPlayer->getPosition().x, mPlayer->getPosition().y);
+	mPlayer = mHollywood->createVillain();
+	mCinema->setPosition(mPlayer->getPosition().x + 11, mPlayer->getPosition().y + 20);
 
+	mPlayer->setPosition(100, 100);
+
+	//TODO REMOVE
+	bgt.loadFromFile("assets/background.png");
+	bgs.setTexture(bgt);
 }
 
 Game::~Game()
@@ -25,9 +30,13 @@ bool Game::tick(double time)
 {
 	// Check input.
 	if(mCinema->isKeyDown(sf::Keyboard::Left))
-		playerMove(-200 * time, 0);
+		playerMove(-400 * time, 0);
 	if(mCinema->isKeyDown(sf::Keyboard::Right))
-		playerMove(200 * time, 0);
+		playerMove(400 * time, 0);
+
+	mCinema->draw(&bgs);
+
+	mCinema->setPosition(mPlayer->getPosition());
 
 	std::map<sf::String, Actor*>::iterator i;
 	for(i = mActors.begin(); i != mActors.end(); i++)
@@ -36,6 +45,7 @@ bool Game::tick(double time)
 	for(i = mActors.begin(); i != mActors.end(); i++)
 		mCinema->draw(i->second);
 	mCinema->draw(mPlayer);
+
 	return true;
 }
 
@@ -64,13 +74,7 @@ void Game::playerMove(double x, double y)
 	// Actually move the player.
 	test = current;
 	if(hor)
-	{
 		mPlayer->translate(x, 0);
-		mCinema->translate(x, 0);
-	}
 	if(vert)
-	{
 		mPlayer->translate(0, y);
-		mCinema->translate(0, y);
-	}
 }

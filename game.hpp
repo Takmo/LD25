@@ -19,6 +19,10 @@ public:
 
 private:
 
+	// TODO REMOVE
+	sf::Texture bgt;
+	sf::Sprite bgs;
+
 	void playerMove(double x, double y);
 
 	std::map<sf::String, Actor*> mActors;

@@ -8,7 +8,8 @@ Hollywood::Hollywood(Warehouse *warehouse)
 
 	mWarehouse->addItem("assets/background.png");
 	mWarehouse->addItem("assets/goat.png");
-	mWarehouse->addItem("assets/villain.png");
+
+	mWarehouse->addItem("assets/villain/stopped.png");
 
 	mWarehouse->addItem("assets/test/red1.png");
 	mWarehouse->addItem("assets/test/red2.png");
@@ -44,6 +45,14 @@ Actor *Hollywood::createTestActor()
 	a->addAnimation("PURPLE", ani2);
 
 	return a;
+}
+
+Actor *Hollywood::createVillain()
+{
+	Animation *ani = new Animation(1000, "assets/villain/stopped.png",
+		mWarehouse->getTexture("assets/villain/stopped.png"));
+	Actor *act = new Actor(ani);
+	return act;
 }
 
 void Hollywood::deleteActor(Actor *actor)

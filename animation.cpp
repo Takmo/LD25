@@ -4,6 +4,7 @@
 
 Animation::Animation(double frameTime, sf::String firstName, sf::Texture *firstTexture)
 {
+	mCurrentFrame = 0;
 	mCurrentTime = 0;
 	mFrameTime = frameTime;
 	mFrames.push_back(firstTexture);

@@ -7,6 +7,8 @@ Actor::Actor(Animation *defaultAnimation, bool visible)
 	mVisible = visible;
 	addAnimation("DEFAULT", defaultAnimation);
 	mCurrentAnimation = mAnimations.begin();
+	mSprite.setTexture(*mCurrentAnimation->second->getCurrentFrame());
+	mSprite.setOrigin(mSprite.getTexture()->getSize().x / 2, mSprite.getTexture()->getSize().y / 2);
 }
 
 Actor::~Actor()
@@ -102,6 +104,5 @@ void Actor::tick(double time)
 
 void Actor::translate(float x, float y)
 {
-	sf::Vector2f oldPos = mSprite.getPosition();
-	mSprite.setPosition(oldPos.x + x, oldPos.y + y);
+	mSprite.move(x, y);
 }

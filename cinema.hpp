@@ -85,6 +85,12 @@ public:
 	void setPosition(float x, float y);
 
 	/*
+		void setPosition(float x, float y);
+		Sets the position of the center of the cinema screen.
+	*/
+	void setPosition(sf::Vector2f position);
+
+	/*
 		void setViewer(CinemaViewer *viewer);
 		Sets the current CinemaViewer that receives event notifications.
 	*/

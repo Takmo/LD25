@@ -10,8 +10,9 @@ void CinemaViewer::keyReleased(sf::Keyboard::Key key) {}
 
 Cinema::Cinema()
 {
-	mRenderWindow.create(sf::VideoMode(800, 600), "Dr. Ludum's Exploding Goats(tm)", sf::Style::Close);
-	mRenderWindow.setFramerateLimit(30);
+	mRenderWindow.create(sf::VideoMode(1024, 768), "Dr. Ludum's Exploding Goats(tm)", sf::Style::Close);
+	//mRenderWindow.setFramerateLimit(30);
+	mRenderWindow.setVerticalSyncEnabled(true);
 	mRenderWindow.display();
 	setViewer(this);
 	mView = mRenderWindow.getDefaultView();
@@ -61,6 +62,12 @@ void Cinema::setPosition(float x, float y)
 	mView.setCenter(x, y);
 }
 
+void Cinema::setPosition(sf::Vector2f position)
+{
+	mView.setCenter(position);
+	mRenderWindow.setView(mView);
+}
+
 void Cinema::setViewer(CinemaViewer *viewer)
 {
 	mCinemaViewer = viewer;
@@ -75,5 +82,4 @@ void Cinema::render()
 {
 	mRenderWindow.display();
 	mRenderWindow.clear();
-	mRenderWindow.setView(mView);
 }

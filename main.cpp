@@ -16,8 +16,8 @@ int main(int argc, char **argv)
 	while(c.pollEvents())
 	{
 		deltaTime = mTimer.getElapsedTime().asSeconds();
-		mTimer.restart();
 		g.tick(deltaTime);
+		mTimer.restart();
 		c.render();
 	}
 
