@@ -11,8 +11,6 @@ public:
 
 	~Game();
 
-	void pauseGame();
-
 	/*
 		bool tick(double time);
 		Ticks the game by time. Return false if game over.
@@ -21,9 +19,13 @@ public:
 
 private:
 
-	Actor *mPlayer;
+	void playerMove(double x, double y);
+
 	std::map<sf::String, Actor*> mActors;
-	sf::Sprite background;	// TODO REMOVE THIS TOO.
+
+	std::map<sf::String, Actor*> mPhysics;
+
+	Actor *mPlayer;
 
 	Cinema *mCinema;
 	Hollywood *mHollywood;

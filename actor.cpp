@@ -2,14 +2,11 @@
 
 #include "actor.hpp"
 
-Actor::Actor(sf::String defaultName, sf::Texture *defaultTexture, float x, float y, bool visible)
+Actor::Actor(Animation *defaultAnimation, bool visible)
 {
-	mDefaultTexture = defaultTexture;
-	mDefaultTextureName = defaultName;
-	mSprite.setTexture(*mDefaultTexture);
-	mSprite.setPosition(x, y);
 	mVisible = visible;
-	mCurrentAnimation = mAnimations.end();;
+	addAnimation("DEFAULT", defaultAnimation);
+	mCurrentAnimation = mAnimations.begin();
 }
 
 Actor::~Actor()
@@ -19,22 +16,11 @@ Actor::~Actor()
 	for(ai = mAnimations.begin(); ai != mAnimations.end(); ai++)
 		delete ai->second;
 	mAnimations.clear();
-	
-	// Delete the sounds.
-	std::map<sf::String, sf::Sound*>::iterator si;
-	for(si = mSounds.begin(); si != mSounds.end(); si++)
-		delete si->second;
-	mSounds.clear();
 }
 
 void Actor::addAnimation(sf::String name, Animation *animation)
 {
 	mAnimations.insert(std::make_pair(name, animation));
-}
-
-void Actor::addSound(sf::String name, sf::SoundBuffer *sound)
-{
-	mSounds.insert(std::make_pair(name, new sf::Sound(*sound)));
 }
 
 sf::FloatRect Actor::getBounds()
@@ -50,17 +36,13 @@ sf::Sprite *Actor::getSprite()
 std::vector<sf::String> Actor::getAssetList()
 {
 	std::vector<sf::String> r;
-	r.push_back(mDefaultTextureName);
 	std::map<sf::String, Animation*>::iterator ai;
 	for(ai = mAnimations.begin(); ai != mAnimations.end(); ai++)
 	{
 		std::vector<sf::String>::iterator ti;
-		for(ti = ai->second->getFrameList().begin(); ti != ai->second->getFrameList().end(); ti++)
-			r.push_back(*ti);
+		for(unsigned int n = 0; n < ai->second->getFrameList().size(); n++)
+			r.push_back(ai->second->getFrameList()[n]);
 	}
-	std::map<sf::String, sf::Sound*>::iterator si;
-	for(si = mSounds.begin(); si != mSounds.end(); si++)
-		r.push_back(si->first);
 	return r;
 }
 
@@ -88,6 +70,14 @@ bool Actor::isVisible()
 	return mVisible;
 }
 
+void Actor::setAnimation(sf::String name)
+{
+	if(mCurrentAnimation == mAnimations.find(name))
+		return;
+	mCurrentAnimation->second->reset();
+	mCurrentAnimation = mAnimations.find(name);
+}
+
 void Actor::setPosition(float x, float y)
 {
 	mSprite.setPosition(x, y);
@@ -100,7 +90,14 @@ void Actor::setVisible(bool visible)
 
 void Actor::tick(double time)
 {
-	// TODO
+	switch(mCurrentAnimation->second->tick(time))
+	{
+	case 0:
+		break;
+	default:
+		mSprite.setTexture(*mCurrentAnimation->second->getCurrentFrame());
+		break;
+	}
 }
 
 void Actor::translate(float x, float y)

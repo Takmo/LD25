@@ -20,7 +20,7 @@ public:
 		CONSTRUCTOR
 		Create and actor with a default texture and position. Visible by default.
 	*/
-	Actor(sf::String defaultName, sf::Texture *defaultTexture, float x, float y, bool visible = true);
+	Actor(Animation *defaultAnimation, bool visible = true);
 	
 	/*
 		DESTRUCTOR
@@ -35,13 +35,6 @@ public:
 		Can be played or stopped by referencing the name.
 	*/
 	void addAnimation(sf::String name, Animation *animation);
-	
-	/*
-		void addSound(sf::String name, sf::SoundBuffer *sound);
-		Add a sound to the actor's soundbank that can be played
-		at a later time.
-	*/
-	void addSound(sf::String name, sf::SoundBuffer *sound);
 	
 	/*
 		bool intersects(float x, float y);
@@ -86,6 +79,12 @@ public:
 		Returns true if the actor is visible.
 	*/
 	bool isVisible();
+
+	/*
+		void setAnimation(sf::String name);
+		Sets the current animation.
+	*/
+	void setAnimation(sf::String name);
 	
 	/*
 		void setPosition(float x, float y);
@@ -116,9 +115,6 @@ protected:
 	bool mVisible;	// If the actor is invisible, don't draw.
 	std::map<sf::String, Animation*>::iterator mCurrentAnimation;
 	std::map<sf::String, Animation*> mAnimations;
-	std::map<sf::String, sf::Sound*> mSounds;
 	sf::Sprite mSprite;
-	sf::String mDefaultTextureName;
-	sf::Texture *mDefaultTexture;
 
 };

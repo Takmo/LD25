@@ -9,6 +9,16 @@ Hollywood::Hollywood(Warehouse *warehouse)
 	mWarehouse->addItem("assets/background.png");
 	mWarehouse->addItem("assets/goat.png");
 	mWarehouse->addItem("assets/villain.png");
+
+	mWarehouse->addItem("assets/test/red1.png");
+	mWarehouse->addItem("assets/test/red2.png");
+	mWarehouse->addItem("assets/test/red3.png");
+	mWarehouse->addItem("assets/test/red4.png");
+
+	mWarehouse->addItem("assets/test/p1.png");
+	mWarehouse->addItem("assets/test/p2.png");
+	mWarehouse->addItem("assets/test/p3.png");
+	mWarehouse->addItem("assets/test/p4.png");
 }
 
 Hollywood::~Hollywood()
@@ -18,12 +28,22 @@ Hollywood::~Hollywood()
 
 Actor *Hollywood::createTestActor()
 {
-	return new Actor("assets/villain.png", mWarehouse->getTexture("assets/villain.png"), 0, 0);
-}
+	Animation *ani = new Animation(0.5, "assets/test/red1.png",
+		mWarehouse->getTexture("assets/test/red1.png"));
+	ani->addFrame("assets/test/red2.png", mWarehouse->getTexture("assets/test/red2.png"));
+	ani->addFrame("assets/test/red3.png", mWarehouse->getTexture("assets/test/red3.png"));
+	ani->addFrame("assets/test/red4.png", mWarehouse->getTexture("assets/test/red4.png"));
 
-Actor *Hollywood::createGoat()
-{
-	return new Actor("assets/goat.png", mWarehouse->getTexture("assets/goat.png"), 0, 0);
+	Animation *ani2 = new Animation(0.5, "assets/test/p1.png",
+		mWarehouse->getTexture("assets/test/p1.png"));
+	ani2->addFrame("assets/test/p2.png", mWarehouse->getTexture("assets/test/p2.png"));
+	ani2->addFrame("assets/test/p3.png", mWarehouse->getTexture("assets/test/p3.png"));
+	ani2->addFrame("assets/test/p4.png", mWarehouse->getTexture("assets/test/p4.png"));
+
+	Actor *a = new Actor(ani);
+	a->addAnimation("PURPLE", ani2);
+
+	return a;
 }
 
 void Hollywood::deleteActor(Actor *actor)

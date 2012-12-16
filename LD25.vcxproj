@@ -85,7 +85,6 @@
     <ClCompile Include="cinema.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="hollywood.cpp" />
-    <ClCompile Include="jukebox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="warehouse.cpp" />
   </ItemGroup>
@@ -94,7 +93,6 @@
     <ClInclude Include="animation.hpp" />
     <ClInclude Include="cinema.hpp" />
     <ClInclude Include="game.hpp" />
-    <ClInclude Include="jukebox.hpp" />
     <ClInclude Include="hollywood.hpp" />
     <ClInclude Include="warehouse.hpp" />
   </ItemGroup>

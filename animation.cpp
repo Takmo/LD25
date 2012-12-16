@@ -8,7 +8,7 @@ Animation::Animation(double frameTime, sf::String firstName, sf::Texture *firstT
 	mFrameTime = frameTime;
 	mFrames.push_back(firstTexture);
 	mAssetList.push_back(firstName);
-	mCurrentFrame = mFrames.begin();
+	mCurrentFrame = 0;
 }
 
 Animation::~Animation()
@@ -25,7 +25,7 @@ void Animation::addFrame(sf::String name, sf::Texture *frame)
 
 sf::Texture *Animation::getCurrentFrame()
 {
-	return *mCurrentFrame;
+	return mFrames[mCurrentFrame];
 }
 
 std::vector<sf::String> Animation::getFrameList()
@@ -33,18 +33,25 @@ std::vector<sf::String> Animation::getFrameList()
 	return mAssetList;
 }
 
-bool Animation::tick(double time)
+void Animation::reset()
+{
+	mCurrentFrame = 0;
+	mCurrentTime = 0;
+}
+
+int Animation::tick(double time)
 {
 	mCurrentTime += time;
 	if(mCurrentTime >= mFrameTime)
 	{
 		mCurrentFrame++;
 		mCurrentTime = 0;
-		if(mCurrentFrame == mFrames.end())
+		if(mCurrentFrame == mFrames.size())
 		{
-			mCurrentFrame = mFrames.begin();
-			return true;
+			mCurrentFrame = 0;
+			return -1;
 		}
+		return 1;
 	}
-	return false;
+	return 0;
 }

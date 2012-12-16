@@ -19,18 +19,17 @@ public:
 
 	std::vector<sf::String> getFrameList();
 
-	/*
-		bool tick(double time);
-		Advance the animation by time.
-		Return true if animation is finished.
-	*/
-	bool tick(double time);
+	// Start animation over.
+	void reset();
+
+	// 0 if nothing. 1 if new frame. -1 if reset.
+	int tick(double time);
 
 protected:
 
 	double mCurrentTime;	// The current time elapsed.
 	double mFrameTime;	// The time between frames.
-	std::vector<sf::Texture*>::iterator mCurrentFrame;
+	int mCurrentFrame;
 	std::vector<sf::Texture*> mFrames;
 	std::vector<sf::String> mAssetList;	// Holds the names for later.
 };

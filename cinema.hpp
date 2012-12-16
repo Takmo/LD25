@@ -101,4 +101,5 @@ private:
 
 	CinemaViewer *mCinemaViewer;
 	sf::RenderWindow mRenderWindow;	// The SFML RenderWindow.
+	sf::View mView;
 };

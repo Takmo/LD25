@@ -3,16 +3,19 @@
 #include "cinema.hpp"
 
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/View.hpp>
 
 void CinemaViewer::keyPressed(sf::Keyboard::Key key) {}
 void CinemaViewer::keyReleased(sf::Keyboard::Key key) {}
 
 Cinema::Cinema()
 {
-	mRenderWindow.create(sf::VideoMode(800, 600), "Ludum Dare 25", sf::Style::Close);
+	mRenderWindow.create(sf::VideoMode(800, 600), "Dr. Ludum's Exploding Goats(tm)", sf::Style::Close);
 	mRenderWindow.setFramerateLimit(30);
 	mRenderWindow.display();
 	setViewer(this);
+	mView = mRenderWindow.getDefaultView();
+	mRenderWindow.setView(mView);
 }
 
 void Cinema::draw(Actor *actor)
@@ -53,13 +56,24 @@ bool Cinema::pollEvents()
 	return retValue;
 }
 
+void Cinema::setPosition(float x, float y)
+{
+	mView.setCenter(x, y);
+}
+
 void Cinema::setViewer(CinemaViewer *viewer)
 {
 	mCinemaViewer = viewer;
+}
+
+void Cinema::translate(float x, float y)
+{
+	mView.move(x, y);
 }
 
 void Cinema::render()
 {
 	mRenderWindow.display();
 	mRenderWindow.clear();
+	mRenderWindow.setView(mView);
 }
