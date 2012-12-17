@@ -8,7 +8,8 @@ Actor::Actor(Animation *defaultAnimation, bool visible)
 	addAnimation("DEFAULT", defaultAnimation);
 	mCurrentAnimation = mAnimations.begin();
 	mSprite.setTexture(*mCurrentAnimation->second->getCurrentFrame());
-	mSprite.setOrigin(mSprite.getTexture()->getSize().x / 2, mSprite.getTexture()->getSize().y / 2);
+	mSprite.setOrigin(mSprite.getTexture()->getSize().x / (float) 2,
+		mSprite.getTexture()->getSize().y / (float) 2);
 }
 
 Actor::~Actor()

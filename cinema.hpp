@@ -11,6 +11,7 @@ class CinemaViewer
 public:
 	virtual void keyPressed(sf::Keyboard::Key key);
 	virtual void keyReleased(sf::Keyboard::Key key);
+	virtual void lostFocus();
 };
 
 class Cinema : public CinemaViewer
@@ -23,12 +24,9 @@ public:
 	*/
 	Cinema();
 
-	/*
-		DESTRUCTOR
-		Destroy the cinema. Make sure you delete everything
-		else before you destroy the cinema!
-	*/
 	~Cinema();
+
+	void close();
 
 	/*
 		bool intersects(float x, float y);
@@ -52,7 +50,7 @@ public:
 		void draw(Actor *actor);
 		Draws the sprite.
 	*/
-	void draw(sf::Sprite *sprite);
+	void draw(sf::Drawable *drawable);
 
 	/*
 		sf::Vector2f getPosition();
@@ -66,6 +64,8 @@ public:
 	*/
 	bool isKeyDown(sf::Keyboard::Key key);
 
+	bool isOpen();
+
 	/*
 		bool pollEvents();
 		Polls the window for events. Returns false if closed.
@@ -77,6 +77,13 @@ public:
 		Render one frame.
 	*/
 	void render();
+
+	/*
+		void resetCamera();
+		Reset the camera to default position.
+		Useful for interface drawing.
+	*/
+	void resetCamera();
 
 	/*
 		void setPosition(float x, float y);

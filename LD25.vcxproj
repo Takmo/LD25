@@ -83,8 +83,8 @@
     <ClCompile Include="actor.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="cinema.cpp" />
-    <ClCompile Include="game.cpp" />
     <ClCompile Include="hollywood.cpp" />
+    <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="warehouse.cpp" />
   </ItemGroup>
@@ -92,8 +92,8 @@
     <ClInclude Include="actor.hpp" />
     <ClInclude Include="animation.hpp" />
     <ClInclude Include="cinema.hpp" />
-    <ClInclude Include="game.hpp" />
     <ClInclude Include="hollywood.hpp" />
+    <ClInclude Include="level.hpp" />
     <ClInclude Include="warehouse.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

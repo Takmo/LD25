@@ -7,6 +7,7 @@
 
 void CinemaViewer::keyPressed(sf::Keyboard::Key key) {}
 void CinemaViewer::keyReleased(sf::Keyboard::Key key) {}
+void CinemaViewer::lostFocus() {}
 
 Cinema::Cinema()
 {
@@ -19,6 +20,11 @@ Cinema::Cinema()
 	mRenderWindow.setView(mView);
 }
 
+void Cinema::close()
+{
+	mRenderWindow.close();
+}
+
 void Cinema::draw(Actor *actor)
 {
 	if(!actor->isVisible())
@@ -26,9 +32,9 @@ void Cinema::draw(Actor *actor)
 	mRenderWindow.draw(*actor->getSprite());
 }
 
-void Cinema::draw(sf::Sprite *sprite)
+void Cinema::draw(sf::Drawable *drawable)
 {
-	mRenderWindow.draw(*sprite);
+	mRenderWindow.draw(*drawable);
 }
 
 Cinema::~Cinema()
@@ -41,6 +47,11 @@ bool Cinema::isKeyDown(sf::Keyboard::Key key)
 	return sf::Keyboard::isKeyPressed(key);
 }
 
+bool Cinema::isOpen()
+{
+	return mRenderWindow.isOpen();
+}
+
 bool Cinema::pollEvents()
 {
 	bool retValue = true;
@@ -49,6 +60,8 @@ bool Cinema::pollEvents()
 	{
 		if(e.type == sf::Event::Closed)
 			retValue = false;
+		if(e.type == sf::Event::LostFocus)
+			mCinemaViewer->lostFocus();
 		if(e.type == sf::Event::KeyPressed)
 			mCinemaViewer->keyPressed(e.key.code);
 		if(e.type == sf::Event::KeyReleased)
@@ -82,4 +95,10 @@ void Cinema::render()
 {
 	mRenderWindow.display();
 	mRenderWindow.clear();
+}
+
+void Cinema::resetCamera()
+{
+	sf::View reset = mRenderWindow.getDefaultView();
+	mRenderWindow.setView(reset);
 }

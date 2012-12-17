@@ -1,6 +1,6 @@
 #include "actor.hpp"
 #include "cinema.hpp"
-#include "game.hpp"
+#include "level.hpp"
 #include "warehouse.hpp"
 
 #include <iostream>
@@ -8,18 +8,39 @@
 int main(int argc, char **argv)
 {
 	Cinema c;
-	Game g(&c);
+
+	Warehouse w;
+	Hollywood h(&w);
+
+	Level *l = new Level("blank", &c, &h);
 
 	sf::Clock mTimer;
-	double deltaTime = 0;
+	float deltaTime = 0;
 
 	while(c.pollEvents())
 	{
 		deltaTime = mTimer.getElapsedTime().asSeconds();
-		g.tick(deltaTime);
+		switch(l->tick(deltaTime))
+		{
+		case -1:
+			delete l;
+			l = new Level("blank", &c, &h);
+			break;
+		case 1:
+			c.close();
+			break;
+		default:
+			break;
+		}
+		if(!c.isOpen())
+			break;
 		mTimer.restart();
+		l->drawLevel();
+		l->drawInterface();
 		c.render();
 	}
+
+	delete l;
 
 	return 0;
 }

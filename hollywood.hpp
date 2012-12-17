@@ -31,6 +31,14 @@ public:
 	*/
 	Actor *createTestActor();
 
+	Actor *createGoat();
+
+	Actor *createGoatShed();
+
+	Actor *createPlatform(sf::String path);
+
+	Actor *createVictim(sf::String path);
+
 	Actor *createVillain();
 
 	/*

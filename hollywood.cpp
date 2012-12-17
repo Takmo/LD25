@@ -6,7 +6,6 @@ Hollywood::Hollywood(Warehouse *warehouse)
 {
 	mWarehouse = warehouse;
 
-	mWarehouse->addItem("assets/background.png");
 	mWarehouse->addItem("assets/goat.png");
 
 	mWarehouse->addItem("assets/villain/stopped.png");
@@ -20,6 +19,16 @@ Hollywood::Hollywood(Warehouse *warehouse)
 	mWarehouse->addItem("assets/test/p2.png");
 	mWarehouse->addItem("assets/test/p3.png");
 	mWarehouse->addItem("assets/test/p4.png");
+
+	mWarehouse->addItem("assets/grass/platform.png");
+	mWarehouse->addItem("assets/magma/platform.png");
+
+	mWarehouse->addItem("assets/victims/girl.png");
+	mWarehouse->addItem("assets/victims/guy.png");
+	mWarehouse->addItem("assets/victims/rich.png");
+
+	mWarehouse->addItem("assets/goat.png");
+	mWarehouse->addItem("assets/goatshed.png");
 }
 
 Hollywood::~Hollywood()
@@ -45,6 +54,31 @@ Actor *Hollywood::createTestActor()
 	a->addAnimation("PURPLE", ani2);
 
 	return a;
+}
+
+Actor *Hollywood::createGoat()
+{
+	Animation *ani = new Animation(1000, "assets/goat.png", mWarehouse->getTexture("assets/goat.png"));
+	return new Actor(ani);
+}
+
+Actor *Hollywood::createGoatShed()
+{
+	Animation *ani = new Animation(1000, "assets/goatshed.png",
+		mWarehouse->getTexture("assets/goatshed.png"));
+	return new Actor(ani);
+}
+
+Actor *Hollywood::createPlatform(sf::String path)
+{
+	Animation *ani = new Animation(1000, path, mWarehouse->getTexture(path));
+	return new Actor(ani);
+}
+
+Actor *Hollywood::createVictim(sf::String path)
+{
+	Animation *ani = new Animation(1000, path, mWarehouse->getTexture(path));
+	return new Actor(ani);
 }
 
 Actor *Hollywood::createVillain()
