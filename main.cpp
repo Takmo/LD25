@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	Warehouse w;
 	Hollywood h(&w);
 
-	Level *l = new Level("blank", &c, &h);
+	Level *l = new Level("assets/examplelevel", &c, &h);
 
 	sf::Clock mTimer;
 	float deltaTime = 0;
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 		{
 		case -1:
 			delete l;
-			l = new Level("blank", &c, &h);
+			l = new Level("assets/examplelevel", &c, &h);
 			break;
 		case 1:
 			c.close();

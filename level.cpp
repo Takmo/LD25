@@ -2,7 +2,12 @@
 
 #include "level.hpp"
 
-Level::Level(sf::String configFile, Cinema *cinema, Hollywood *hollywood)
+#include <fstream>
+#include <sstream>
+
+std::vector<std::string> stringSplit(const std::string &source, const char *delimiter = " ", bool keepEmpty = false);
+
+Level::Level(std::string levelName, Cinema *cinema, Hollywood *hollywood)
 {
 	mCinema = cinema;
 	mHollywood = hollywood;
@@ -61,7 +66,7 @@ Level::Level(sf::String configFile, Cinema *cinema, Hollywood *hollywood)
 	mHasGoat = false;
 
 	// Load the configuration.
-	loadConfig(configFile);
+	loadConfig(levelName);
 
 	// Exploding goat stuff.
 	mGoatDetonationTime = -1;
@@ -205,7 +210,7 @@ int Level::tick(float time)
 			{
 				mHollywood->deleteActor(*i);
 				mVictims.remove(*i);
-				i--;
+				i = mVictims.begin();
 				// Set score.
 				if(mGoatDetonationTime == 3)
 					mScore += 500;
@@ -332,32 +337,59 @@ void Level::applyJump(float time)
 		tryMovement(0, -mJumpVelocity * time);
 }
 
-void Level::loadConfig(sf::String configFile)
+void Level::loadConfig(std::string levelName)
 {
-	// TODO FILL THIS IN WITH FILE.
-	mBackgroundTexture.loadFromFile("assets/magma/background.png");
+	mBackgroundTexture.loadFromFile(levelName + "/background.png");
 	mBackgroundSprite.setTexture(mBackgroundTexture);
-	
-	mGoatShed->setPosition(500, 465);
-	mGoat->setPosition(570, 470);
 
-	Actor *platform = mHollywood->createPlatform("assets/grass/platform.png");
-	platform->setPosition(500, 500);
-	mPhysicsActors.push_back(platform);
+	// Loading and stuff. Stole code from Stack Overflow.
+	std::vector<std::vector<std::string>> mLines;
+	std::ifstream cf;
+	cf.open(levelName + "/level.txt");
+	if(!cf.is_open())
+	{
+		puts("COULD NOT OPEN LEVEL FILE.");
+		return;
+	}
 
-	platform = mHollywood->createPlatform("assets/magma/platform.png");
-	platform->setPosition(500, 700);
-	mPhysicsActors.push_back(platform);
+	while(!cf.eof())
+	{
+		std::string buffer;
+		std::getline(cf, buffer);
 
-	platform = mHollywood->createPlatform("assets/magma/platform.png");
-	platform->setPosition(700, 600);
-	mPhysicsActors.push_back(platform);
+		// Split into lines divided by ':'
+		mLines.push_back(stringSplit(buffer, ":"));
+	}
+	cf.close();
 
-	Actor *vic = mHollywood->createVictim("assets/victims/rich.png");
-	vic->setPosition(700, 565);
-	mVictims.push_back(vic);
+	// Start positioning things.
+	float x = (float) atof(mLines[0][0].c_str());
+	float y = (float) atof(mLines[0][1].c_str());
+	mPlayer->setPosition(x, y);
+	x = (float) atof(mLines[1][0].c_str());
+	y = (float) atof(mLines[1][1].c_str());
+	mGoatShed->setPosition(x, y);
 
-	mPlayer->setPosition(500, 0);
+	// Add items and actors, etc...
+	for(unsigned int i = 2; i < mLines.size(); i++)
+	{
+		if(mLines[i][0] == "add")
+			mHollywood->addItem(mLines[i][1]);
+		if(mLines[i][0] == "platform")
+		{
+			Actor *a = mHollywood->createPlatform(mLines[i][1]);
+			a->setPosition((float) atof(mLines[i][2].c_str()),
+				(float) atof(mLines[i][3].c_str()));
+			mPhysicsActors.push_back(a);
+		}
+		if(mLines[i][0] == "victim")
+		{
+			Actor *a = mHollywood->createVictim(mLines[i][1]);
+			a->setPosition((float) atof(mLines[i][2].c_str()),
+				(float) atof(mLines[i][3].c_str()));
+			mVictims.push_back(a);
+		}
+	}
 }
 
 void Level::plantGoat()
@@ -424,4 +456,30 @@ void Level::updateTimer()
 	mTimerText.setOrigin(mTimerText.getLocalBounds().width / 2,
 		mTimerText.getLocalBounds().height / 2);
 	mTimerText.setPosition(512, 700);
+}
+
+// Pasted from http://stackoverflow.com/questions/10051679/c-tokenize-string
+
+std::vector<std::string> stringSplit(const std::string &source, const char *delimiter, bool keepEmpty)
+{
+    std::vector<std::string> results;
+
+    size_t prev = 0;
+    size_t next = 0;
+
+    while ((next = source.find_first_of(delimiter, prev)) != std::string::npos)
+    {
+        if (keepEmpty || (next - prev != 0))
+        {
+            results.push_back(source.substr(prev, next - prev));
+        }
+        prev = next + 1;
+    }
+
+    if (prev < source.size())
+    {
+        results.push_back(source.substr(prev));
+    }
+
+    return results;
 }

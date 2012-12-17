@@ -12,7 +12,7 @@
 class Level : public CinemaViewer
 {
 public:
-	Level(sf::String configFile, Cinema *cinema, Hollywood *hollywood);
+	Level(std::string levelName, Cinema *cinema, Hollywood *hollywood);
 
 	~Level();
 
@@ -35,7 +35,7 @@ private:
 
 	void applyJump(float time);
 
-	void loadConfig(sf::String configFile);
+	void loadConfig(std::string levelName);
 
 	// Plant the goat to explode.
 	void plantGoat();

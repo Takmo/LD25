@@ -20,13 +20,6 @@ Hollywood::Hollywood(Warehouse *warehouse)
 	mWarehouse->addItem("assets/test/p3.png");
 	mWarehouse->addItem("assets/test/p4.png");
 
-	mWarehouse->addItem("assets/grass/platform.png");
-	mWarehouse->addItem("assets/magma/platform.png");
-
-	mWarehouse->addItem("assets/victims/girl.png");
-	mWarehouse->addItem("assets/victims/guy.png");
-	mWarehouse->addItem("assets/victims/rich.png");
-
 	mWarehouse->addItem("assets/goat.png");
 	mWarehouse->addItem("assets/goatshed.png");
 }
@@ -34,6 +27,11 @@ Hollywood::Hollywood(Warehouse *warehouse)
 Hollywood::~Hollywood()
 {
 
+}
+
+void Hollywood::addItem(sf::String name)
+{
+	mWarehouse->addItem(name);
 }
 
 Actor *Hollywood::createTestActor()

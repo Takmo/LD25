@@ -24,6 +24,8 @@ public:
 	*/
 	~Hollywood();
 
+	void addItem(sf::String name);
+
 	/*
 		Actor *createTestActor();
 		Create a test actor with default settings.
