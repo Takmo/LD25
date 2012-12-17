@@ -86,4 +86,10 @@ private:
 
 	sf::SoundBuffer mExplosionBuffer;	// Explosion sound data.
 	sf::Sound mExplosionSound;	// Actual explosion sound.
+	sf::SoundBuffer mJumpBuffer;
+	sf::Sound mJumpSound;
+	sf::SoundBuffer mGetGoatBuffer;
+	sf::Sound mGetGoatSound;
+	sf::SoundBuffer mSetGoatBuffer;
+	sf::Sound mSetGoatSound;
 };

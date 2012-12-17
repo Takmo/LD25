@@ -69,6 +69,12 @@ Level::Level(sf::String configFile, Cinema *cinema, Hollywood *hollywood)
 	// Load the sounds.
 	mExplosionBuffer.loadFromFile("assets/explosion.wav");
 	mExplosionSound.setBuffer(mExplosionBuffer);
+	mJumpBuffer.loadFromFile("assets/jump.wav");
+	mJumpSound.setBuffer(mJumpBuffer);
+	mGetGoatBuffer.loadFromFile("assets/getgoat.wav");
+	mGetGoatSound.setBuffer(mGetGoatBuffer);
+	mSetGoatBuffer.loadFromFile("assets/setgoat.wav");
+	mSetGoatSound.setBuffer(mSetGoatBuffer);
 }
 
 Level::~Level()
@@ -176,7 +182,6 @@ int Level::tick(float time)
 	{
 		mExplosionSound.play();
 		mGoat->setVisible(false);
-		mGoatDetonationTime = -1;
 		if(mHasGoat)
 		{
 			mPlayer->setVisible(false);
@@ -198,11 +203,21 @@ int Level::tick(float time)
 		for(std::list<Actor*>::iterator i = mVictims.begin(); i != mVictims.end(); i++)
 			if(explosion.intersects((*i)->getBounds()))
 			{
-				// CHANGE SCORE DEPENDING ON TIME LENGTH
 				mHollywood->deleteActor(*i);
 				mVictims.remove(*i);
 				i--;
-				mScore += 100;
+				// Set score.
+				if(mGoatDetonationTime == 3)
+					mScore += 500;
+				if(mGoatDetonationTime == 5)
+					mScore += 400;
+				if(mGoatDetonationTime == 7)
+					mScore += 300;
+				if(mGoatDetonationTime == 9)
+					mScore += 200;
+				if(mGoatDetonationTime == 11)
+					mScore += 100;
+				mScore += 50;
 				updateScore();
 				if(mVictims.size() == 0)
 				{
@@ -210,6 +225,7 @@ int Level::tick(float time)
 					return 0;
 				}
 			}
+		mGoatDetonationTime = -1;
 		updateTimer();
 	}
 
@@ -239,15 +255,52 @@ void Level::keyPressed(sf::Keyboard::Key key)
 		return;
 
 	if(key == sf::Keyboard::Space && mJumpVelocity == 0)
+	{
 		mJumpVelocity = 350;
+		mJumpSound.play();
+	}
 	if(key == sf::Keyboard::S && mHasGoat && mGoatDetonationTime > 0)
 		plantGoat();
-	// TODO REPLACE GET GOAT KEY FROM S TO NUMBERS
-	if(key == sf::Keyboard::S && !mHasGoat && mGoatDetonationTime < 0 && 
+	
+	// Check for number keys to set timer.
+	if(key == sf::Keyboard::Num1 && !mHasGoat && mGoatDetonationTime < 0 && 
 		mPlayer->getBounds().intersects(mGoatShed->getBounds()))
 	{
+		mGetGoatSound.play();
+		mHasGoat = true;
+		mGoatDetonationTime = 3;
+		mGoatTimer = 0;
+	}
+	if(key == sf::Keyboard::Num2 && !mHasGoat && mGoatDetonationTime < 0 && 
+		mPlayer->getBounds().intersects(mGoatShed->getBounds()))
+	{
+		mGetGoatSound.play();
 		mHasGoat = true;
 		mGoatDetonationTime = 5;
+		mGoatTimer = 0;
+	}
+	if(key == sf::Keyboard::Num3 && !mHasGoat && mGoatDetonationTime < 0 && 
+		mPlayer->getBounds().intersects(mGoatShed->getBounds()))
+	{
+		mGetGoatSound.play();
+		mHasGoat = true;
+		mGoatDetonationTime = 7;
+		mGoatTimer = 0;
+	}
+	if(key == sf::Keyboard::Num4 && !mHasGoat && mGoatDetonationTime < 0 && 
+		mPlayer->getBounds().intersects(mGoatShed->getBounds()))
+	{
+		mGetGoatSound.play();
+		mHasGoat = true;
+		mGoatDetonationTime = 9;
+		mGoatTimer = 0;
+	}
+	if(key == sf::Keyboard::Num5 && !mHasGoat && mGoatDetonationTime < 0 && 
+		mPlayer->getBounds().intersects(mGoatShed->getBounds()))
+	{
+		mGetGoatSound.play();
+		mHasGoat = true;
+		mGoatDetonationTime = 11;
 		mGoatTimer = 0;
 	}
 }
@@ -309,7 +362,7 @@ void Level::loadConfig(sf::String configFile)
 
 void Level::plantGoat()
 {
-	// TODO PLANT GOAT
+	mSetGoatSound.play();
 	mHasGoat = false;
 	mGoat->setPosition(mPlayer->getPosition().x, mPlayer->getPosition().y + 5);
 	mGoat->setVisible();
