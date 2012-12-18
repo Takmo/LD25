@@ -9,6 +9,7 @@
 class CinemaViewer
 {
 public:
+	virtual void click(int x, int y);
 	virtual void keyPressed(sf::Keyboard::Key key);
 	virtual void keyReleased(sf::Keyboard::Key key);
 	virtual void lostFocus();

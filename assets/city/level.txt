@@ -1,0 +1,12 @@
+500:0
+500:465
+add:assets/examplelevel/platform.png
+add:assets/examplelevel/ground.png
+add:assets/victims/rich.png
+add:assets/victims/girl.png
+add:assets/victims/guy.png
+platform:assets/examplelevel/platform.png:500:500
+platform:assets/examplelevel/platform.png:700:600
+platform:assets/examplelevel/ground.png:500:700
+victim:assets/victims/rich.png:700:565
+victim:assets/victims/girl.png:500:665

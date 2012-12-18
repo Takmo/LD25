@@ -5,6 +5,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/View.hpp>
 
+void CinemaViewer::click(int x, int y) {}
 void CinemaViewer::keyPressed(sf::Keyboard::Key key) {}
 void CinemaViewer::keyReleased(sf::Keyboard::Key key) {}
 void CinemaViewer::lostFocus() {}
@@ -12,7 +13,7 @@ void CinemaViewer::lostFocus() {}
 Cinema::Cinema()
 {
 	mRenderWindow.create(sf::VideoMode(1024, 768), "Dr. Ludum's Exploding Goats(tm)", sf::Style::Close);
-	//mRenderWindow.setFramerateLimit(30);
+	mRenderWindow.setFramerateLimit(60);
 	mRenderWindow.setVerticalSyncEnabled(true);
 	mRenderWindow.display();
 	setViewer(this);
@@ -73,6 +74,7 @@ bool Cinema::pollEvents()
 void Cinema::setPosition(float x, float y)
 {
 	mView.setCenter(x, y);
+	mRenderWindow.setView(mView);
 }
 
 void Cinema::setPosition(sf::Vector2f position)
@@ -89,6 +91,7 @@ void Cinema::setViewer(CinemaViewer *viewer)
 void Cinema::translate(float x, float y)
 {
 	mView.move(x, y);
+	mRenderWindow.setView(mView);
 }
 
 void Cinema::render()

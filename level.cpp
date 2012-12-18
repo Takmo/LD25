@@ -19,6 +19,9 @@ Level::Level(std::string levelName, Cinema *cinema, Hollywood *hollywood)
 
 	mScore = 0;
 
+	// Exploding goat stuff.
+	mGoatDetonationTime = -1;
+
 	// Setup font.
 	mFont.loadFromFile("assets/PressStart2P.ttf");
 	mPausedText = sf::Text("PAUSED", mFont, 50);
@@ -67,9 +70,6 @@ Level::Level(std::string levelName, Cinema *cinema, Hollywood *hollywood)
 
 	// Load the configuration.
 	loadConfig(levelName);
-
-	// Exploding goat stuff.
-	mGoatDetonationTime = -1;
 
 	// Load the sounds.
 	mExplosionBuffer.loadFromFile("assets/explosion.wav");
@@ -196,9 +196,9 @@ int Level::tick(float time)
 		mHasGoat = false;
 		sf::FloatRect explosion = mGoat->getBounds();
 		explosion.top -= 100;
-		explosion.height += 100;
+		explosion.height += 200;
 		explosion.left -= 100;
-		explosion.width += 100;
+		explosion.width += 200;
 		if(explosion.intersects(mPlayer->getBounds()))
 		{
 			mPlayer->setVisible(false);
@@ -339,13 +339,13 @@ void Level::applyJump(float time)
 
 void Level::loadConfig(std::string levelName)
 {
-	mBackgroundTexture.loadFromFile(levelName + "/background.png");
+	mBackgroundTexture.loadFromFile("assets/" + levelName + "/background.png");
 	mBackgroundSprite.setTexture(mBackgroundTexture);
 
 	// Loading and stuff. Stole code from Stack Overflow.
 	std::vector<std::vector<std::string>> mLines;
 	std::ifstream cf;
-	cf.open(levelName + "/level.txt");
+	cf.open("assets/" + levelName + "/level.txt");
 	if(!cf.is_open())
 	{
 		puts("COULD NOT OPEN LEVEL FILE.");
@@ -373,6 +373,8 @@ void Level::loadConfig(std::string levelName)
 	// Add items and actors, etc...
 	for(unsigned int i = 2; i < mLines.size(); i++)
 	{
+		if(mLines[i].size() == 0)
+			break;
 		if(mLines[i][0] == "add")
 			mHollywood->addItem(mLines[i][1]);
 		if(mLines[i][0] == "platform")
@@ -445,7 +447,7 @@ void Level::updateScore()
 
 void Level::updateTimer()
 {
-	if(mGoatDetonationTime > 0)
+	if(mGoatDetonationTime != -1)
 	{
 		char buffer[13];
 		sprintf_s(buffer, "%d", (int)(mGoatDetonationTime - mGoatTimer));

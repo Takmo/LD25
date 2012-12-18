@@ -44,8 +44,7 @@ void Warehouse::addItem(sf::String resourceName)
 		{
 			std::cout << "Warehouse: Graphic not found: " <<
 				(std::string)resourceName << std::endl;
-			delete t;
-			return;
+			t->create(1, 1);
 		}
 		t->setSmooth(false);
 		mTextures.insert(std::make_pair(resourceName, t));
